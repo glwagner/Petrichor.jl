@@ -11,9 +11,9 @@ using KernelAbstractions: @kernel, @index
     dTdt = κ * ∂²zᵃᵃᶜ(i, j, k, grid, T)
 
     # add surface contribution
-    Qk = @inbounds Q[i, j, k]
+    Qij = @inbounds Q[i, j, 1]
     Δz = Δzᵃᵃᶜ(i, j, k, grid)
-    dTdt += ifelse(k == grid.Nz, - Qk / Δz, zero(grid))
+    dTdt += ifelse(k == grid.Nz, - Qij / Δz, zero(grid))
     
     @inbounds T[i, j, k] += Δt * dTdt
 end
